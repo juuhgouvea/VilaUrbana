@@ -3,6 +3,7 @@ package sample.Model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class JDBCRestauranteDAO implements RestauranteDAO {
     private static JDBCRestauranteDAO instance = null;
@@ -18,41 +19,54 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
     }
 
     @Override
-    public boolean create(Restaurante restaurante) throws Exception {
+    public Restaurante create(Restaurante restaurante) throws Exception {
         Connection con;
         ResultSet rs;
         PreparedStatement pstm;
-        String SQL = "INSERT INTO restaurantes(nome_restaurante, foto_restaurante, usuario_id) VALUES (?, ?, ?)";
+        String SQL = "INSERT INTO restaurantes(nome_restaurante, foto_restaurante, cod_usuario) VALUES (?, ?, ?)";
 
         int id = 0;
 
-        try {
-            con = FabricaConexao.getConnection();
+        con = FabricaConexao.getConnection();
 
-            pstm = con.prepareStatement(SQL);
-            pstm.setString(1, restaurante.getNome());
-            pstm.setString(2, restaurante.getLogo());
-            pstm.setInt(3, restaurante.getUsuario().getId());
-            pstm.execute();
+        pstm = con.prepareStatement(SQL);
+        pstm.setString(1, restaurante.getNomeRestaurante());
+        pstm.setString(2, restaurante.getFotoRestaurante());
+        pstm.setInt(3, restaurante.getUsuario().getCodUsuario());
+        pstm.execute();
 
-            SQL = "SELECT id FROM restaurantes ORDER BY id DESC LIMIT 1";
-            pstm = con.prepareStatement(SQL);
+        SQL = "SELECT cod_restaurante FROM restaurantes ORDER BY cod_restaurante DESC LIMIT 1";
+        pstm = con.prepareStatement(SQL);
 
-            rs = pstm.executeQuery();
+        rs = pstm.executeQuery();
 
-            while (rs.next()) {
-                id = rs.getInt("id");
-            }
-            restaurante.setId(id);
-
-            rs.close();
-            pstm.close();
-            con.close();
-
-            return true;
-        } catch (Exception e) {
-            return false;
+        while (rs.next()) {
+            id = rs.getInt("cod_restaurante");
         }
+        restaurante.setCodRestaurante(id);
+
+        rs.close();
+        pstm.close();
+        con.close();
+
+        return restaurante;
+    }
+
+    @Override
+    public ArrayList<Produto> addProdutos(Restaurante restaurante, ArrayList<Produto> produtos) throws Exception {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "INSERT INTO restaurantes_has_produtos (cod_restaurante, cod_produto) VALUES (?, ?)";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+
+        for (Produto p : produtos) {
+            pstm.setInt(1, restaurante.getCodRestaurante());
+            pstm.setInt(2, p.getCodProduto());
+
+            pstm.execute();
+            restaurante.getProdutos().add(p);
+        }
+
+        return produtos;
     }
 
     public boolean buscarRest(String restaurante) throws Exception {
@@ -62,23 +76,20 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
         PreparedStatement pstm;
         String SQL;
 
-        try {
-            con = FabricaConexao.getConnection();
+        con = FabricaConexao.getConnection();
 
-            SQL = "SELECT nome_restaurante FROM restaurantes WHERE nome_restaurante = ? ";
-            pstm = con.prepareStatement(SQL);
-            pstm.setString(1, restaurante);
+        SQL = "SELECT nome_restaurante FROM restaurantes WHERE nome_restaurante = ? ";
+        pstm = con.prepareStatement(SQL);
+        pstm.setString(1, restaurante);
 
-            rs = pstm.executeQuery();
+        rs = pstm.executeQuery();
 
-            if (rs.next()) {
-                result = true;
-            }
-            pstm.close();
-            return result;
-
-        } catch (Exception e) {
-            return false;
+        if (rs.next()) {
+            result = true;
         }
+
+        pstm.close();
+
+        return result;
     }
 }

@@ -20,69 +20,66 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
     }
 
     @Override
-    public boolean create(Usuario usuario) throws Exception {
+    public Usuario create(Usuario usuario) throws Exception {
         Connection con;
         ResultSet rs;
         PreparedStatement pstm;
         String SQL = "INSERT INTO usuarios(nome_completo, nome_usuario, email, senha) VALUES (?, ?, ?, ?)";
-        ;
+
         int id = 0;
 
-        try {
-            con = FabricaConexao.getConnection();
+        con = FabricaConexao.getConnection();
 
-            pstm = con.prepareStatement(SQL);
-            pstm.setString(1, usuario.getNomeCompleto());
-            pstm.setString(2, usuario.getNomeUsuario());
-            pstm.setString(3, usuario.getEmail());
-            pstm.setString(4, usuario.getSenha());
-            pstm.execute();
+        pstm = con.prepareStatement(SQL);
+        pstm.setString(1, usuario.getNomeCompleto());
+        pstm.setString(2, usuario.getNomeUsuario());
+        pstm.setString(3, usuario.getEmail());
+        pstm.setString(4, usuario.getSenha());
+        pstm.execute();
 
-            SQL = "SELECT id FROM usuarios ORDER BY id DESC LIMIT 1";
-            pstm = con.prepareStatement(SQL);
+        SQL = "SELECT cod_usuario FROM usuarios ORDER BY cod_usuario DESC LIMIT 1";
+        pstm = con.prepareStatement(SQL);
 
-            rs = pstm.executeQuery();
+        rs = pstm.executeQuery();
 
-            while (rs.next()) {
-                id = rs.getInt("id");
-            }
-            usuario.setId(id);
-
-            rs.close();
-            pstm.close();
-            con.close();
-
-            return true;
-        } catch (Exception e) {
-            return false;
+        while (rs.next()) {
+            id = rs.getInt("id");
         }
+        usuario.setCodUsuario(id);
+
+        rs.close();
+        pstm.close();
+        con.close();
+
+        return usuario;
     }
 
-    public boolean buscarUsuario(String usuario) throws Exception {
-        boolean result = false;
+    public Usuario buscarUsuario(String email) throws Exception {
         Connection con;
         ResultSet rs;
         PreparedStatement pstm;
         String SQL;
+        Usuario usuario = null;
 
-        try {
-            con = FabricaConexao.getConnection();
+        con = FabricaConexao.getConnection();
 
-            SQL = "SELECT nome_usuario FROM usuarios WHERE nome_usuario = ? ";
-            pstm = con.prepareStatement(SQL);
-            pstm.setString(1, usuario);
+        SQL = "SELECT * FROM usuarios WHERE email LIKE ?";
+        pstm = con.prepareStatement(SQL);
+        pstm.setString(1, email);
 
-            rs = pstm.executeQuery();
+        rs = pstm.executeQuery();
 
-            if (rs.next()) {
-                result = true;
-            }
-            pstm.close();
-            return result;
-
-        } catch (Exception e) {
-            return false;
+        if (rs.next()) {
+            usuario = new Usuario();
+            usuario.setCodUsuario(rs.getInt("id"));
+            usuario.setNomeUsuario(rs.getString("nome_usuario"));
+            usuario.setNomeCompleto(rs.getString("nome_completo"));
+            usuario.setEmail(rs.getString("email"));
         }
+
+        pstm.close();
+
+        return usuario;
     }
 }
 

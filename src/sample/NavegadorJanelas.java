@@ -19,7 +19,7 @@ public class NavegadorJanelas {
     public static final String PRINCIPAL = "Views/JanelaPrincipal.fxml";
     public static final String JANELA_CADASTRAR_USUARIO = "Views/cadastrarUsuario.fxml";
     public static final String JANELA_CADASTRAR_RESTAURANTE_1 = "Views/CadastrarRestaurante/Passo1.fxml";
-    public static final String JANELA_CADASTRAR_RESTAURANTE_2 = "Views/CadastrarRestaurante/Passo2.fxml";
+    public static final String JANELA_CADASTRAR_RESTAURANTE_2 = "./Views/CadastrarRestaurante/Passo2.fxml";
     public static Stage stage = null;
 
     private static ControllerJanelaPrincipal controladorJanelaPrincipal;
@@ -43,6 +43,21 @@ public class NavegadorJanelas {
             Node janela = loader.load(
                     NavegadorJanelas.class.getResource(fxml));
 
+            controladorJanelaPrincipal.setJanela(janela);
+        } catch (Exception e) {
+            System.out.println("Erro ao trocar janela: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadJanela(String fxml, Object dados) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+
+            Node janela = loader.load(
+                    NavegadorJanelas.class.getResourceAsStream(fxml));
+
+            ((ControllerBase) loader.getController()).setDados(dados);
             controladorJanelaPrincipal.setJanela(janela);
         } catch (Exception e) {
             System.out.println("Erro ao trocar janela: " + e.getMessage());

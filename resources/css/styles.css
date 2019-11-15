@@ -1,0 +1,7 @@
+.link {
+    -fx-cursor: hand;
+}
+
+.required {
+    -fx-fill: red;
+}

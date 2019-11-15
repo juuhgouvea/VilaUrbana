@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" stylesheets="file:resources/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaCadastrarProduto">
+   <children>
+      <ImageView fitHeight="183.0" fitWidth="175.0" layoutX="82.0" layoutY="94.0">
+         <image>
+            <Image url="file:resources/images/two.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="343.0" orientation="VERTICAL" prefHeight="400.0" />
+      <HBox layoutX="15.0" layoutY="374.0" onMouseClicked="#voltar" prefHeight="38.0" prefWidth="168.0">
+         <children>
+            <ImageView fitHeight="16.0" fitWidth="17.0">
+               <image>
+                  <Image url="file:resources/images/left-arrow.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="link" text=" Voltar à página inicial " />
+         </children></HBox>
+      <Text fontSmoothingType="LCD" layoutX="40.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSO">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Circle fill="#bdc3c7" layoutX="695.0" layoutY="80.0" onMouseClicked="#uploadFoto" radius="51.0" stroke="#1abc9c" strokeType="INSIDE" styleClass="link" />
+      <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="678.0" layoutY="61.0" onMouseClicked="#uploadFoto" styleClass="link">
+         <image>
+            <Image url="file:resources/images/photo-camera.png" />
+         </image>
+      </ImageView>
+      <Text fill="#0d866e" layoutX="609.0" layoutY="149.0" onMouseClicked="#uploadFoto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="link" text="Adicione a foto do produto" textAlignment="CENTER" underline="true" />
+      <Text fx:id="fotoFile" layoutX="608.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="173.08154296875" />
+      <TextField fx:id="nomeProduto" layoutX="363.0" layoutY="54.0" prefHeight="26.0" prefWidth="241.0" />
+      <Text layoutX="363.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o nome do produto" />
+      <Text layoutX="578.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" />
+      <TextField fx:id="valor" layoutX="363.0" layoutY="107.0" prefHeight="26.0" prefWidth="102.0" />
+      <Text layoutX="363.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o valor a ser cobrado " wrappingWidth="241.0" />
+      <Text layoutX="591.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" />
+      <TextArea fx:id="descProduto" layoutX="363.0" layoutY="218.0" prefHeight="119.0" prefWidth="417.0" />
+      <Text layoutX="363.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicione abaixo a descrição do produto " />
+      <Button layoutX="541.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#cadastrar" style="-fx-background-color: #1abc9c;" styleClass="link" text="Cadastrar" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cbCategoria" layoutX="360.0" layoutY="151.0" prefHeight="26.0" prefWidth="192.0" promptText="Selecione a categoria" />
+      <HBox alignment="CENTER" layoutX="698.0" layoutY="371.0" onMouseClicked="#concluir" prefHeight="26.0" prefWidth="91.0" spacing="5.0" styleClass="link">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Concluir" textAlignment="CENTER" underline="true" wrappingWidth="56.7294921875" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

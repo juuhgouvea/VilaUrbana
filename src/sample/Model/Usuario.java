@@ -1,19 +1,17 @@
 package sample.Model;
 
 public class Usuario {
-    private int id;
+    private int codUsuario;
     private String nomeCompleto;
     private String nomeUsuario;
     private String email;
     private String senha;
 
-    public int getId() {
-        return this.id;
+    public int getCodUsuario() {
+        return this.codUsuario;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setCodUsuario(int codUsuario) { this.codUsuario = codUsuario; }
 
     public String getNomeCompleto() {
         return nomeCompleto;

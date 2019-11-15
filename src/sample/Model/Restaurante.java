@@ -3,33 +3,38 @@ package sample.Model;
 import java.util.ArrayList;
 
 public class Restaurante {
-    private int id;
-    private String nome;
-    private String logo;
+    private int codRestaurante;
+    private String nomeRestaurante;
+    private String fotoRestaurante;
     private Usuario usuario;
+    private ArrayList<Produto> produtos;
 
-    public int getId() {
-        return id;
+    public Restaurante() {
+        this.produtos = new ArrayList();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getCodRestaurante() {
+        return codRestaurante;
     }
 
-    public String getNome() {
-        return nome;
+    public void setCodRestaurante(int codRestaurante) {
+        this.codRestaurante = codRestaurante;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getNomeRestaurante() {
+        return nomeRestaurante;
     }
 
-    public String getLogo() {
-        return logo;
+    public void setNomeRestaurante(String nome) {
+        this.nomeRestaurante = nome;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public String getFotoRestaurante() {
+        return fotoRestaurante;
+    }
+
+    public void setFotoRestaurante(String logo) {
+        this.fotoRestaurante = logo;
     }
 
     public Usuario getUsuario() {
@@ -38,5 +43,13 @@ public class Restaurante {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos.addAll(produtos);
     }
 }

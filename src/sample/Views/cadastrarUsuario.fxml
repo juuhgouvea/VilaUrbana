@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.PasswordField?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaCadastrarUsuario">
+<GridPane stylesheets="file:resources/css/styles.css" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaCadastrarUsuario">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -31,16 +31,16 @@
                <children>
                   <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastre-se para ver os cardapios do nosso local e realizar seu pedido!" textAlignment="CENTER" wrappingWidth="281.13525390625" />
                   <Separator layoutX="48.0" layoutY="62.0" prefHeight="0.0" prefWidth="235.0" />
-                  <TextField layoutX="48.0" layoutY="78.0" prefHeight="26.0" prefWidth="235.0" promptText="Endereço de e-mail" fx:id="email"/>
-                  <TextField layoutX="48.0" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome completo" fx:id="nomeCompleto"/>
-                  <TextField layoutX="48.0" layoutY="160.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome de usuário" fx:id="nomeUsuario"/>
-                  <PasswordField layoutX="48.0" layoutY="202.0" prefHeight="26.0" prefWidth="235.0" promptText="Senha" fx:id="senha"/>
-                  <Button onMouseClicked="#cadastrar" layoutX="103.0" layoutY="247.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #f1c40f;" text="Cadastrar-se" />
+                  <TextField layoutX="48.0" layoutY="78.0" prefHeight="26.0" prefWidth="235.0" promptText="Endereço de e-mail" focusTraversable="false" fx:id="email"/>
+                  <TextField layoutX="48.0" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome completo" focusTraversable="false" fx:id="nomeCompleto"/>
+                  <TextField layoutX="48.0" layoutY="160.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome de usuário" focusTraversable="false" fx:id="nomeUsuario"/>
+                  <PasswordField layoutX="48.0" layoutY="202.0" prefHeight="26.0" prefWidth="235.0" promptText="Senha" focusTraversable="false" fx:id="senha"/>
+                  <Button styleClass="link" onMouseClicked="#cadastrar" layoutX="103.0" layoutY="247.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #f1c40f;" text="Cadastrar-se" />
                </children></AnchorPane>
-            <AnchorPane layoutX="447.0" layoutY="345.0" prefHeight="30.0" prefWidth="325.0" style="-fx-background-color: #fff;">
+            <AnchorPane stylesheets="file:resources/css/styles.css" layoutX="447.0" layoutY="345.0" prefHeight="30.0" prefWidth="325.0" style="-fx-background-color: #fff;">
                <children>
                   <Text layoutX="64.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ja tem uma conta?" wrappingWidth="210.0" />
-                  <Text layoutX="190.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conecte-se" underline="true" />
+                  <Text styleClass="link" layoutX="190.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conecte-se" underline="true" />
                </children></AnchorPane>
          </children>
       </AnchorPane>

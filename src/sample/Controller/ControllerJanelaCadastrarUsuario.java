@@ -7,7 +7,6 @@ import sample.Model.JDBCUsuarioDAO;
 import sample.Model.Usuario;
 
 import java.io.File;
-import java.sql.SQLException;
 
 public class ControllerJanelaCadastrarUsuario extends ControllerBase {
     @FXML
@@ -26,39 +25,40 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
         String nomeUsuario = this.nomeUsuario.getText();
         String senha = this.senha.getText();
 
-        Usuario usuario = new Usuario();
-        usuario.setEmail(email);
-        usuario.setNomeCompleto(nomeCompleto);
-        usuario.setNomeUsuario(nomeUsuario);
-        usuario.setSenha(senha);
-
         try {
-            boolean verifica = JDBCUsuarioDAO.getInstance().buscarUsuario(this.nomeUsuario.getText());
-            if(this.email.getText().equals("") || this.email.getText().equals(null) || this.nomeCompleto.getText().equals("") || this.nomeCompleto.getText().equals(null) || this.nomeUsuario.getText().equals("") || this.nomeUsuario.getText().equals(null) || this.senha.getText().equals("") || this.senha.getText().equals(null)){
-                throw new NullPointerException();
+            Usuario usuarioBuscado = JDBCUsuarioDAO.getInstance().buscarUsuario(this.email.getText());
+            if(this.email.getText().equals("") || this.email.getText().equals(null) ||
+                    this.nomeCompleto.getText().equals("") || this.nomeCompleto.getText().equals(null) ||
+                    this.nomeUsuario.getText().equals("") || this.nomeUsuario.getText().equals(null) ||
+                    this.senha.getText().equals("") || this.senha.getText().equals(null)){
+                mensagem(Alert.AlertType.ERROR, "Preencha todos os campos!");
+                return;
             }
             else if(this.senha.getText().length() < 6){
-                throw new IllegalArgumentException();
+                mensagem(Alert.AlertType.ERROR, "A senha precisa no mínimo de 6 caracteres!");
+                return;
             }
-            else if (verifica ){
-                throw new Exception();
+            else if (usuarioBuscado != null){
+                mensagem(Alert.AlertType.ERROR, "Email de usuário já cadastrado!");
+                return;
             }
 
-            boolean sucesso = JDBCUsuarioDAO.getInstance().create(usuario);
-            if(sucesso) {
-                File usuarioDiretorio = new File("./resources/ImagensUsuarios/usuario-" + usuario.getId());
+            Usuario usuario = new Usuario();
+            usuario.setEmail(email);
+            usuario.setNomeCompleto(nomeCompleto);
+            usuario.setNomeUsuario(nomeUsuario);
+            usuario.setSenha(senha);
+
+            Usuario sucesso = JDBCUsuarioDAO.getInstance().create(usuario);
+            if (sucesso != null) {
+                File usuarioDiretorio = new File("./resources/ImagensUsuarios/usuario-" + usuario.getCodUsuario());
                 usuarioDiretorio.mkdir();
                 mensagem(Alert.AlertType.CONFIRMATION, usuario.getNomeCompleto() + ", você foi cadastrado(a) com sucesso!");
             } else {
                 mensagem(Alert.AlertType.ERROR, "Desculpe, houve um erro no seu cadastro!");
             }
-        }catch (NullPointerException e) {
-            mensagem(Alert.AlertType.ERROR, "Preencha todos os campos!");
-        }catch (IllegalArgumentException e) {
-            mensagem(Alert.AlertType.ERROR, "A senha precisa no mínimo de 6 caracteres!");
-        }
-        catch (Exception s){
-            mensagem(Alert.AlertType.ERROR, "Nome de usuário já cadastrado!");
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
