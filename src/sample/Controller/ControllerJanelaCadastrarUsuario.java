@@ -5,8 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import sample.Model.JDBCUsuarioDAO;
 import sample.Model.Usuario;
+import sample.NavegadorJanelas;
 
 import java.io.File;
+import java.sql.SQLException;
 
 public class ControllerJanelaCadastrarUsuario extends ControllerBase {
     @FXML
@@ -26,7 +28,6 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
         String senha = this.senha.getText();
 
         try {
-            Usuario usuarioBuscado = JDBCUsuarioDAO.getInstance().buscarUsuario(this.email.getText());
             if(this.email.getText().equals("") || this.email.getText().equals(null) ||
                     this.nomeCompleto.getText().equals("") || this.nomeCompleto.getText().equals(null) ||
                     this.nomeUsuario.getText().equals("") || this.nomeUsuario.getText().equals(null) ||
@@ -36,10 +37,6 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
             }
             else if(this.senha.getText().length() < 6){
                 mensagem(Alert.AlertType.ERROR, "A senha precisa no mínimo de 6 caracteres!");
-                return;
-            }
-            else if (usuarioBuscado != null){
-                mensagem(Alert.AlertType.ERROR, "Email de usuário já cadastrado!");
                 return;
             }
 
@@ -57,8 +54,26 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
             } else {
                 mensagem(Alert.AlertType.ERROR, "Desculpe, houve um erro no seu cadastro!");
             }
+        } catch (SQLException e) {
+            if(e.getErrorCode() == 19) {
+                String erro = "";
+                String campo = e.getMessage().split(":")[1];
+                campo = campo.substring(1, campo.length()-1);
+
+                if(campo.equals("usuarios.nome_usuario")) {
+                    erro = "Este nome de usuario já existe!";
+                } else {
+                    erro = "Este email já existe!";
+                }
+
+                mensagem(Alert.AlertType.ERROR, erro);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void login() {
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_LOGIN);
     }
 }

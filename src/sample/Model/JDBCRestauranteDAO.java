@@ -1,14 +1,17 @@
 package sample.Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 public class JDBCRestauranteDAO implements RestauranteDAO {
     private static JDBCRestauranteDAO instance = null;
+    private ObservableList<Restaurante> restaurantes;
 
-    private JDBCRestauranteDAO(){}
+    private JDBCRestauranteDAO(){
+        this.restaurantes = FXCollections.observableArrayList();
+    }
 
     public static JDBCRestauranteDAO getInstance() {
         if(instance == null) {
@@ -19,13 +22,13 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
     }
 
     @Override
-    public Restaurante create(Restaurante restaurante) throws Exception {
+    public Restaurante create(Restaurante restaurante) throws SQLException {
         Connection con;
         ResultSet rs;
         PreparedStatement pstm;
         String SQL = "INSERT INTO restaurantes(nome_restaurante, foto_restaurante, cod_usuario) VALUES (?, ?, ?)";
 
-        int id = 0;
+        int cod = 0;
 
         con = FabricaConexao.getConnection();
 
@@ -41,9 +44,20 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
         rs = pstm.executeQuery();
 
         while (rs.next()) {
-            id = rs.getInt("cod_restaurante");
+            cod = rs.getInt("cod_restaurante");
         }
-        restaurante.setCodRestaurante(id);
+        restaurante.setCodRestaurante(cod);
+
+        SQL = "INSERT INTO restaurantes_has_produtos (cod_restaurante, cod_produto) VALUES (?, ?)";
+        pstm = con.prepareStatement(SQL);
+
+        for (Produto p : restaurante.getProdutos()) {
+            JDBCProdutoDAO.getInstance().create(p);
+            pstm.setInt(1, restaurante.getCodRestaurante());
+            pstm.setInt(2, p.getCodProduto());
+
+            pstm.execute();
+        }
 
         rs.close();
         pstm.close();
@@ -53,43 +67,55 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
     }
 
     @Override
-    public ArrayList<Produto> addProdutos(Restaurante restaurante, ArrayList<Produto> produtos) throws Exception {
-        Connection con = FabricaConexao.getConnection();
-        String SQL = "INSERT INTO restaurantes_has_produtos (cod_restaurante, cod_produto) VALUES (?, ?)";
-        PreparedStatement pstm = con.prepareStatement(SQL);
+    public ObservableList<Restaurante> list() {
+        String SQL = "SELECT * FROM restaurantes";
 
-        for (Produto p : produtos) {
-            pstm.setInt(1, restaurante.getCodRestaurante());
-            pstm.setInt(2, p.getCodProduto());
+        try {
+            Connection con = FabricaConexao.getConnection();
+            PreparedStatement pstm = con.prepareStatement(SQL);
+            ResultSet rs;
+            rs = pstm.executeQuery();
 
-            pstm.execute();
-            restaurante.getProdutos().add(p);
+            this.restaurantes.clear();
+;
+            while (rs.next()) {
+                int cod_usuario = rs.getInt("cod_usuario");
+                Restaurante restaurante = new Restaurante();
+                restaurante.setCodRestaurante(rs.getInt("cod_restaurante"));
+                restaurante.setNomeRestaurante(rs.getString("nome_restaurante"));
+                restaurante.setFotoRestaurante(rs.getString("foto_restaurante"));
+                restaurante.setUsuario(JDBCUsuarioDAO.getInstance().search(cod_usuario));
+
+                SQL = "SELECT cod_produto FROM restaurantes_has_produtos WHERE cod_restaurante = ?";
+                pstm = con.prepareStatement(SQL);
+                pstm.setInt(1, restaurante.getCodRestaurante());
+                ResultSet rsProdutos = pstm.executeQuery();
+
+                while(rsProdutos.next()) {
+                    int codProduto = rsProdutos.getInt("cod_produto");
+                    Produto p = JDBCProdutoDAO.getInstance().search(codProduto);
+                    restaurante.getProdutos().add(p);
+                }
+
+                rsProdutos.close();
+                this.restaurantes.add(restaurante);
+            }
+
+            rs.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Erro ao listar restaurantes! " + e.getMessage());
+            e.printStackTrace();
         }
-
-        return produtos;
+        return restaurantes;
     }
 
-    public boolean buscarRest(String restaurante) throws Exception {
-        boolean result = false;
-        Connection con;
-        ResultSet rs;
-        PreparedStatement pstm;
-        String SQL;
+    public ObservableList<Restaurante> getRestaurantes() {
+        return restaurantes;
+    }
 
-        con = FabricaConexao.getConnection();
-
-        SQL = "SELECT nome_restaurante FROM restaurantes WHERE nome_restaurante = ? ";
-        pstm = con.prepareStatement(SQL);
-        pstm.setString(1, restaurante);
-
-        rs = pstm.executeQuery();
-
-        if (rs.next()) {
-            result = true;
-        }
-
-        pstm.close();
-
-        return result;
+    public void setRestaurantes(ObservableList<Restaurante> restaurantes) {
+        this.restaurantes.clear();
+        this.restaurantes.addAll(restaurantes);
     }
 }

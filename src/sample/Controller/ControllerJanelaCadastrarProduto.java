@@ -12,7 +12,9 @@ import sample.NavegadorJanelas;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ControllerJanelaCadastrarProduto extends ControllerBase {
     @FXML
@@ -26,37 +28,34 @@ public class ControllerJanelaCadastrarProduto extends ControllerBase {
     @FXML
     private ComboBox<Categoria> cbCategoria;
 
-    private File foto = null;
+    private File fotoAtual;
+    private ArrayList<File> fotos;
     private Restaurante restaurante = null;
-    private ArrayList<Produto> produtos;
 
     @FXML
     public void initialize() {
         cbCategoria.setItems(JDBCCategoriaDAO.getInstance().list());
-        produtos = new ArrayList<>();
+        fotos = new ArrayList<>();
     }
 
     @Override
     public void setDados(Object dados) {
-        this.restaurante = new Restaurante();
         this.restaurante = (Restaurante) dados;
     }
 
     @FXML
     public void cadastrar(){
         String erros = "";
-        BufferedImage fotoImage = null;
         String nomeFoto = null;
         String nome = nomeProduto.getText();
 
-        if(this.foto != null){
-            nomeFoto = this.foto.getName();
-            try{
-                fotoImage = ImageIO.read(new File(this.foto.getPath()));
-            }catch (Exception e){
-                erros += "Erro ao ler imagem";
-            }
+        if(this.fotoAtual != null){
+            this.fotos.add(this.fotoAtual);
+            nomeFoto = this.fotoAtual.getName();
+        } else {
+            this.fotos.add(null);
         }
+
         if(nomeProduto.getText() == "" || nomeProduto.getText().length() < 2) {
             erros += "\nO campo 'nome do produto' deve ter ao menos 2 caracteres!";
         }
@@ -90,17 +89,18 @@ public class ControllerJanelaCadastrarProduto extends ControllerBase {
         produto.setCategoria(categoria);
 
         try {
-            String sucesso = "Produto cadastrado com sucesso!\n\nCaso deseja alterar os dados desse produto basta ir a Home!";
-            JDBCProdutoDAO.getInstance().create(produto);
-            this.produtos.add(produto);
+            String sucesso = "Produto adicionado com sucesso!\n\nCaso deseja alterar os dados desse produto basta ir a Home!";
+            this.restaurante.getProdutos().add(produto);
             mensagem(Alert.AlertType.CONFIRMATION, sucesso);
+
             this.nomeProduto.setText("");
             this.cbCategoria.getSelectionModel().clearSelection();
             this.cbCategoria.setPromptText("Selecione a categoria");
             this.descProduto.setText("");
             this.valor.setText("");
             this.fotoFile.setText("");
-            this.foto = null;
+            this.fotoAtual = null;
+            nomeFoto = null;
         } catch (Exception e) {
             mensagem(Alert.AlertType.ERROR, "Desculpe, houve um erro ao cadastrar seu produto!");
         }
@@ -108,25 +108,45 @@ public class ControllerJanelaCadastrarProduto extends ControllerBase {
 
     @FXML
     public void uploadFoto(){
-        FileChooser.ExtensionFilter PNGImages = new FileChooser.ExtensionFilter("PNG Files", "*.png", "*.PNG");
-        FileChooser.ExtensionFilter JPGImages = new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.JPG");
-        FileChooser.ExtensionFilter JPEGImages = new FileChooser.ExtensionFilter("JPEG Files", "*.jpeg", "*.JPEG");
+        ArrayList<String> arquivos = new ArrayList<String>();
+        ArrayList<String> filtros = new ArrayList<String>();
+        arquivos.addAll(Arrays.asList("PNG Files", "JPG Files", "JPEG Files"));
+        filtros.addAll(Arrays.asList("*.png", "*.jpg", "*.jpeg"));
+        this.fotoAtual  = uploadFile(arquivos, filtros, "Selecione a foto do produto");
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(PNGImages, JPEGImages, JPGImages);
-        fileChooser.setTitle("Escolha a foto do produto");
-        this.foto = fileChooser.showOpenDialog(NavegadorJanelas.getStage());
-        if(this.foto != null) {
-             fotoFile.setText("" + this.foto.getName());
+        if(this.fotoAtual != null) {
+            this.fotoFile.setText(this.fotoAtual.getName());
         }
     }
 
     @FXML
     public void concluir() {
         try {
-            JDBCRestauranteDAO.getInstance().addProdutos(this.restaurante, this.produtos);
+            JDBCRestauranteDAO.getInstance().create(this.restaurante);
+            ArrayList<Produto> produtos = new ArrayList<>();
+            produtos.addAll(this.restaurante.getProdutos());
+
+            for (int i = 0; i < produtos.size(); i++) {
+                if(this.fotos.get(i) == null) {
+                    continue;
+                }
+
+                BufferedImage image = ImageIO.read(new File(this.fotos.get(i).getPath()));
+                String path = "./resources/ImagensUsuarios/usuario-" +
+                        this.restaurante.getUsuario().getCodUsuario() + "/produto-"
+                        + produtos.get(i).getCodProduto() + "-" + produtos.get(i).getFotoProduto();
+
+                ImageIO.write(image, "PNG", new File(path));
+                this.fotos.set(i, new File(path));
+            }
+        } catch ( SQLException e) {
+            if(e.getErrorCode() == 19) {
+                mensagem(Alert.AlertType.ERROR, "Restaurante já cadastrado!");
+                NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_RESTAURANTE_1, this.restaurante);
+            }
+            return;
         } catch (Exception e) {
-            mensagem(Alert.AlertType.ERROR, "Erro ao adicionar produtos no Restaurante");
+            mensagem(Alert.AlertType.ERROR, "Erro ao adicionar produtos no Restaurante!");
             return;
         }
 

@@ -11,10 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="file:resources/css/styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaCadastrarRestaurante">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" stylesheets="file:resources/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaCadastrarRestaurante">
    <children>
       <TextField fx:id="nomeRestaurante" layoutX="412.0" layoutY="250.0" prefHeight="26.0" prefWidth="368.0" />
-      <Button styleClass="link" layoutX="530.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#cadastrar" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #1abc9c;" text="Cadastrar" textAlignment="CENTER">
+      <Button fx:id="btnConcluir" layoutX="530.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#cadastrar" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Concluir" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -24,15 +24,15 @@
             <Font size="35.0" />
          </font>
       </Text>
-      <Text layoutX="412.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o nome do restaurante que deseja cadastrar *" textAlignment="CENTER" wrappingWidth="367.7294921875">
+      <Text layoutX="407.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o nome do restaurante que deseja cadastrar " textAlignment="CENTER" wrappingWidth="367.7294921875">
          <font>
             <Font size="12.0" />
          </font>
       </Text>
       <Separator layoutX="343.0" orientation="VERTICAL" prefHeight="400.0" />
-      <Circle styleClass="link" fill="#bdc3c7" layoutX="587.0" layoutY="87.0" onMouseClicked="#uploadFoto" radius="71.0" stroke="#1abc9c" strokeType="INSIDE" />
-      <Text styleClass="link" fill="#0d866e" layoutX="467.0" layoutY="182.0" onMouseClicked="#uploadFoto" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicione aqui a logo do restaurante" textAlignment="CENTER" underline="true" wrappingWidth="240.7294921875" />
-      <ImageView styleClass="link" fitHeight="183.0" fitWidth="175.0" layoutX="82.0" layoutY="94.0">
+      <Circle fill="#bdc3c7" layoutX="587.0" layoutY="87.0" onMouseClicked="#uploadFoto" radius="71.0" stroke="#1abc9c" strokeType="INSIDE" styleClass="link" />
+      <Text fill="#0d866e" layoutX="467.0" layoutY="182.0" onMouseClicked="#uploadFoto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="link" text="Adicione aqui a logo do restaurante" textAlignment="CENTER" underline="true" wrappingWidth="240.7294921875" />
+      <ImageView fitHeight="183.0" fitWidth="175.0" layoutX="82.0" layoutY="94.0" styleClass="link">
          <image>
             <Image url="file:resources/images/one.png" />
          </image>
@@ -42,7 +42,7 @@
             <Image url="file:resources/images/photo-camera.png" />
          </image>
       </ImageView>
-      <HBox styleClass="link" alignment="CENTER" layoutX="23.0" layoutY="374.0" onMouseClicked="#voltar" prefHeight="16.0" prefWidth="66.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="23.0" layoutY="374.0" onMouseClicked="#voltar" prefHeight="16.0" prefWidth="66.0" spacing="5.0" styleClass="link">
          <children>
             <ImageView fitHeight="16.0" fitWidth="17.0">
                <image>
@@ -52,7 +52,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar" textAlignment="CENTER" underline="true" wrappingWidth="41.7294921875" />
          </children>
       </HBox>
-      <HBox styleClass="link" alignment="CENTER" layoutX="683.0" layoutY="368.0" onMouseClicked="#proximo" prefHeight="26.0" prefWidth="91.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="683.0" layoutY="368.0" onMouseClicked="#proximo" prefHeight="26.0" prefWidth="91.0" spacing="5.0" styleClass="link">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Próximo" textAlignment="CENTER" underline="true" wrappingWidth="56.7294921875" />
             <ImageView fitHeight="16.0" fitWidth="17.0">
@@ -63,6 +63,7 @@
          </children>
       </HBox>
       <Text fx:id="logoFile" layoutX="471.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="231.7294921875" />
-      <Text styleClass="required" layoutX="372.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Campo obrigatório" wrappingWidth="132.0185546875" />
+      <Text layoutX="371.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="* Campo obrigatório" wrappingWidth="132.0185546875" />
+      <Text layoutX="767.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" textAlignment="CENTER" />
    </children>
 </AnchorPane>

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Controller.ControllerJanelaPrincipal;
@@ -19,6 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         NavegadorJanelas.setStage(primaryStage);
         primaryStage.setTitle("Vila Urbana");
+        primaryStage.getIcons().add(new Image("file:resources/images/VilaUrbana.png"));
         primaryStage.setScene(createScene(loadMainPane()));
         primaryStage.show();
     }
@@ -35,7 +37,7 @@ public class Main extends Application {
         ControllerJanelaPrincipal controller = loader.getController();
 
         NavegadorJanelas.setControladorPrincipal(controller);
-        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_RESTAURANTE_1);
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
 
         return mainPane;
     }

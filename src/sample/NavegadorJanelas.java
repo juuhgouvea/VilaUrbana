@@ -19,7 +19,9 @@ public class NavegadorJanelas {
     public static final String PRINCIPAL = "Views/JanelaPrincipal.fxml";
     public static final String JANELA_CADASTRAR_USUARIO = "Views/cadastrarUsuario.fxml";
     public static final String JANELA_CADASTRAR_RESTAURANTE_1 = "Views/CadastrarRestaurante/Passo1.fxml";
-    public static final String JANELA_CADASTRAR_RESTAURANTE_2 = "./Views/CadastrarRestaurante/Passo2.fxml";
+    public static final String JANELA_CADASTRAR_RESTAURANTE_2 = "Views/CadastrarRestaurante/Passo2.fxml";
+    public static final String JANELA_LOGIN = "Views/telaLogin.fxml";
+    public static final String JANELA_HOME = "Views/Home.fxml";
     public static Stage stage = null;
 
     private static ControllerJanelaPrincipal controladorJanelaPrincipal;

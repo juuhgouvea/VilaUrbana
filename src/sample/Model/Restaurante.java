@@ -50,6 +50,12 @@ public class Restaurante {
     }
 
     public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos.clear();
         this.produtos.addAll(produtos);
+    }
+
+    @Override
+    public String toString() {
+        return this.nomeRestaurante;
     }
 }
