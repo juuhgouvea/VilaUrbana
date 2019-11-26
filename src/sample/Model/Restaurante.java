@@ -1,16 +1,18 @@
 package sample.Model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class Restaurante {
     private int codRestaurante;
     private String nomeRestaurante;
     private String fotoRestaurante;
     private Usuario usuario;
-    private ArrayList<Produto> produtos;
+    private ObservableList<Produto> produtos;
 
     public Restaurante() {
-        this.produtos = new ArrayList();
+        this.produtos = FXCollections.observableArrayList();
     }
 
     public int getCodRestaurante() {
@@ -45,11 +47,11 @@ public class Restaurante {
         this.usuario = usuario;
     }
 
-    public ArrayList<Produto> getProdutos() {
+    public ObservableList<Produto> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
+    public void setProdutos(ObservableList<Produto> produtos) {
         this.produtos.clear();
         this.produtos.addAll(produtos);
     }

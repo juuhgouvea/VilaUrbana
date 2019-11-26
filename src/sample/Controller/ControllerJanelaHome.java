@@ -3,6 +3,7 @@ package sample.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import sample.Model.JDBCRestauranteDAO;
 import sample.Model.Restaurante;
@@ -22,5 +23,15 @@ public class ControllerJanelaHome extends ControllerBase {
     @FXML
     public void cadastrarRestaurante() {
         NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_RESTAURANTE_1);
+    }
+
+    @FXML
+    public void visualizar() {
+        Restaurante restaurante = (Restaurante) ltvRestaurantes.getSelectionModel().getSelectedItem();
+        if(restaurante == null) {
+            mensagem(Alert.AlertType.ERROR, "Selecione um restaurante!");
+            return;
+        }
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_VISUALIZAR_RESTAURANTE, restaurante);
     }
 }

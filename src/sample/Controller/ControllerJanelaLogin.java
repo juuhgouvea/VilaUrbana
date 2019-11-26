@@ -26,4 +26,9 @@ public class ControllerJanelaLogin extends ControllerBase {
 
         NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
+
+    @FXML
+    public void voltar(){
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
+    }
 }

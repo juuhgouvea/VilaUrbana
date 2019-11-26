@@ -39,10 +39,6 @@ public class ControllerJanelaCadastrarRestaurante extends ControllerBase {
     @FXML
     public void cadastrar() {
         String erros = "";
-        if(this.restaurante != null) {
-            mensagem(Alert.AlertType.INFORMATION, "Prossiga para o próximo passo!");
-            return;
-        }
 
         String nome = this.nomeRestaurante.getText();
         Restaurante newRestaurante = new Restaurante();
@@ -103,7 +99,7 @@ public class ControllerJanelaCadastrarRestaurante extends ControllerBase {
 
     @FXML
     public void voltar() {
-        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 
     @FXML

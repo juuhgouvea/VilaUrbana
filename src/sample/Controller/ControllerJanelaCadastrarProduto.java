@@ -151,11 +151,11 @@ public class ControllerJanelaCadastrarProduto extends ControllerBase {
         }
 
         mensagem(Alert.AlertType.CONFIRMATION, "Parabéns! Você concluiu as etapas!");
-        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 
     @FXML
-    public void voltar() {
-        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
+    public void cancelar() {
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 }

@@ -32,10 +32,10 @@
                <children>
                   <Text layoutX="40.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastre-se para ver os restaurantes e os cardápios do nosso local !" textAlignment="CENTER" wrappingWidth="250.13525390625" />
                   <Separator layoutX="48.0" layoutY="62.0" prefHeight="0.0" prefWidth="235.0" />
-                  <TextField fx:id="email" focusTraversable="false" layoutX="48.0" layoutY="78.0" prefHeight="26.0" prefWidth="235.0" promptText="Endereço de e-mail" />
-                  <TextField fx:id="nomeCompleto" focusTraversable="false" layoutX="48.0" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome completo" />
-                  <TextField fx:id="nomeUsuario" focusTraversable="false" layoutX="48.0" layoutY="160.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome de usuário" />
-                  <PasswordField fx:id="senha" focusTraversable="false" layoutX="48.0" layoutY="202.0" prefHeight="26.0" prefWidth="235.0" promptText="Senha" />
+                  <TextField fx:id="email" layoutX="48.0" layoutY="78.0" prefHeight="26.0" prefWidth="235.0" promptText="Endereço de e-mail" />
+                  <TextField fx:id="nomeCompleto" layoutX="48.0" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome completo" />
+                  <TextField fx:id="nomeUsuario" layoutX="48.0" layoutY="160.0" prefHeight="26.0" prefWidth="235.0" promptText="Nome de usuário" />
+                  <PasswordField fx:id="senha" layoutX="48.0" layoutY="202.0" prefHeight="26.0" prefWidth="235.0" promptText="Senha" />
                   <Button layoutX="103.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#cadastrar" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #f1c40f;" styleClass="link" text="Cadastrar-se">
                      <font>
                         <Font name="System Bold" size="13.0" />

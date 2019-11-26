@@ -37,4 +37,7 @@ public class Produto {
     public String getDescProduto() { return descProduto; }
 
     public void setDescProduto(String descProduto) { this.descProduto = descProduto; }
+
+    @Override
+    public String toString() { return this.nomeProduto; }
 }
