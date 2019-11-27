@@ -85,6 +85,27 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
     }
 
     @Override
+    public Usuario update(Usuario usuario) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "UPDATE usuarios SET email = ?, nome_completo = ?, nome_usuario = ?, senha = ? WHERE cod_usuario = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+
+        pstm.setString(1, usuario.getEmail());
+        pstm.setString(2, usuario.getNomeCompleto());
+        pstm.setString(3, usuario.getNomeUsuario());
+        pstm.setString(4, usuario.getSenha());
+        pstm.setInt(5, usuario.getCodUsuario());
+
+        boolean failed = pstm.execute();
+
+        if(!failed) {
+            return usuario;
+        }
+
+        return null;
+    }
+
+    @Override
     public Usuario logar(String nomeUsuario, String senha) {
         String SQL = "SELECT * FROM usuarios WHERE nome_usuario LIKE ? AND senha LIKE ?";
 
@@ -102,6 +123,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
                 this.logado.setNomeUsuario(rs.getString("nome_usuario"));
                 this.logado.setNomeCompleto(rs.getString("nome_completo"));
                 this.logado.setEmail(rs.getString("email"));
+                this.logado.setSenha(rs.getString("senha"));
             } else {
                 this.logado = null;
             }

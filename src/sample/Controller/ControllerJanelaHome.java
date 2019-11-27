@@ -26,6 +26,11 @@ public class ControllerJanelaHome extends ControllerBase {
     }
 
     @FXML
+    public void editarPerfil() {
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_EDITAR_PERFIL);
+    }
+
+    @FXML
     public void visualizar() {
         Restaurante restaurante = (Restaurante) ltvRestaurantes.getSelectionModel().getSelectedItem();
         if(restaurante == null) {
@@ -34,4 +39,5 @@ public class ControllerJanelaHome extends ControllerBase {
         }
         NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_VISUALIZAR_RESTAURANTE, restaurante);
     }
+
 }

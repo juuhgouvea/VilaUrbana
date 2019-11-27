@@ -14,7 +14,7 @@
          <children>
             <Text layoutX="22.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Perfil" textAlignment="CENTER" />
             <Text layoutX="10.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastrar Restaurante" textAlignment="CENTER" wrappingWidth="100.0" />
-            <Button alignment="TOP_CENTER" layoutY="71.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="120.0" style="-fx-background-color: transparent;" styleClass="link" textAlignment="CENTER">
+            <Button onMouseClicked="#editarPerfil" alignment="TOP_CENTER" layoutY="71.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="120.0" style="-fx-background-color: transparent;" styleClass="link" textAlignment="CENTER">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>

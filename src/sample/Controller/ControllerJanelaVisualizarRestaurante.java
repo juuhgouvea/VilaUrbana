@@ -10,7 +10,6 @@ import sample.Model.Produto;
 import sample.Model.Restaurante;
 import sample.NavegadorJanelas;
 
-
 public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
     @FXML
     private Text nomeRestaurante;
@@ -27,6 +26,8 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
     @FXML
     private TextField search;
 
+    private Restaurante restaurante;
+
     @FXML
     public void initialize() {
         nomeRestaurante.setText("");
@@ -37,19 +38,12 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
 
     @Override
     public void setDados(Object dados) {
-        Restaurante restaurante = (Restaurante) dados;
-        ltvProdutos.setItems(restaurante.getProdutos());
-        nomeRestaurante.setText(restaurante.getNomeRestaurante());
-        if(restaurante.getFotoRestaurante() != null) {
-            String caminho = "../../../resources/imagensUsuarios/usuario-" +
-                    restaurante.getUsuario().getCodUsuario() + "/"
-                    + restaurante.getFotoRestaurante();
-            try {
-                Image image = new Image(caminho);
-                fotoRestaurante.setImage(image);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        this.restaurante = (Restaurante) dados;
+        ltvProdutos.setItems(this.restaurante.getProdutos());
+        nomeRestaurante.setText(this.restaurante.getNomeRestaurante());
+
+        if(this.restaurante.getFotoRestaurante() != null) {
+            fotoRestaurante.setImage(getImage(null, true));
         }
     }
 
@@ -63,7 +57,32 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
 
         descProduto.setText("Descrição do Produto: " + produto.getDescProduto());
         valorProduto.setText("Valor: R$ " + produto.getValor());
+
+        if(produto.getFotoProduto() != null) {
+            fotoProduto.setImage(getImage(produto, false));
+        }
         fotoProduto.setVisible(true);
+    }
+
+    private Image getImage(Object object, boolean restaurante) {
+        Image image = null;
+        String caminho = "file:resources/ImagensUsuarios/usuario-";
+        caminho += this.restaurante.getUsuario().getCodUsuario() + "/";
+
+        if(restaurante) {
+            caminho += this.restaurante.getFotoRestaurante();
+        } else {
+            caminho += "produto-" + ((Produto) object).getCodProduto() + "-";
+            caminho += ((Produto) object).getFotoProduto();
+        }
+
+        try {
+            image = new Image(caminho);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return image;
     }
 
     @FXML

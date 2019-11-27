@@ -55,6 +55,7 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
                 mensagem(Alert.AlertType.ERROR, "Desculpe, houve um erro no seu cadastro!");
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             if(e.getErrorCode() == 19) {
                 String erro = "";
                 String campo = e.getMessage().split(":")[1];

@@ -12,34 +12,34 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" stylesheets="file:resources/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaVisualizarRestaurante">
    <children>
-      <Text fx:id="nomeRestaurante" layoutX="23.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurante" textAlignment="CENTER" wrappingWidth="282.0">
+      <Text fx:id="nomeRestaurante" layoutX="16.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurante" textAlignment="CENTER" wrappingWidth="259.30810546875">
          <font>
-            <Font size="30.0" />
+            <Font size="28.0" />
          </font>
       </Text>
-      <ImageView fx:id="fotoRestaurante" fitHeight="111.0" fitWidth="178.0" layoutX="86.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fotoRestaurante" fitHeight="111.0" fitWidth="178.0" layoutX="62.0" layoutY="23.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:resources/images/noimage.png" />
          </image>
       </ImageView>
-      <ListView fx:id="ltvProdutos" layoutX="331.0" layoutY="87.0" onMouseClicked="#mostrarProduto" prefHeight="200.0" prefWidth="442.0" />
-      <Text fx:id="descProduto" layoutX="341.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição do Produto:" wrappingWidth="250.0">
+      <ListView fx:id="ltvProdutos" layoutX="286.0" layoutY="107.0" onMouseClicked="#mostrarProduto" prefHeight="193.0" prefWidth="481.0" />
+      <Text fx:id="descProduto" layoutX="286.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição do Produto:" wrappingWidth="299.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <ImageView fx:id="fotoProduto" fitHeight="100.0" fitWidth="102.0" layoutX="670.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fotoProduto" fitHeight="86.0" fitWidth="136.0" layoutX="634.0" layoutY="305.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:resources/images/noimage.png" />
          </image>
       </ImageView>
-      <Text fx:id="valorProduto" layoutX="341.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$">
+      <Text fx:id="valorProduto" layoutX="286.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$" wrappingWidth="157.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="search" layoutX="328.0" layoutY="25.0" prefHeight="30.0" prefWidth="399.0" promptText="Procurar Produto por Categoria" />
-      <Button layoutX="735.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" textAlignment="CENTER">
+      <TextField fx:id="search" layoutX="286.0" layoutY="24.0" prefHeight="30.0" prefWidth="430.0" promptText="Procurar Produto por Categoria" />
+      <Button layoutX="725.0" layoutY="24.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -51,13 +51,13 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text layoutX="422.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique no produto para ver os detalhes!" />
-      <Button layoutX="65.0" layoutY="261.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar" textAlignment="CENTER">
+      <Text layoutX="397.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique no produto para ver os detalhes!" />
+      <Button layoutX="73.0" layoutY="302.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar Restaurante" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="144.0" layoutY="261.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" text="Baixar Cardápio" textAlignment="CENTER">
+      <Button layoutX="73.0" layoutY="267.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Baixar Cardápio" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
