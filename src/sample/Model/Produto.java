@@ -5,6 +5,7 @@ public class Produto {
     private String nomeProduto;
     private String fotoProduto;
     private Categoria categoria;
+    private Restaurante restaurante;
     private float valor;
     private String descProduto;
 
@@ -26,6 +27,14 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
     }
 
     public void setFotoProduto(String fotoProduto) { this.fotoProduto = fotoProduto; }

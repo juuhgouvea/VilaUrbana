@@ -67,6 +67,28 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
     }
 
     @Override
+    public Restaurante update(Restaurante restaurante) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "UPDATE restaurantes SET nome_restaurante = ?, foto_restaurante = ? WHERE cod_restaurante = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+
+        pstm.setString(1, restaurante.getNomeRestaurante());
+        pstm.setString(2, restaurante.getFotoRestaurante());
+        pstm.setInt(3, restaurante.getCodRestaurante());
+
+        boolean failed = pstm.execute();
+
+        if(!failed) {
+            return restaurante;
+        }
+
+        pstm.close();
+        con.close();
+
+        return null;
+    }
+
+    @Override
     public ObservableList<Restaurante> list() {
         String SQL = "SELECT * FROM restaurantes";
 
@@ -94,6 +116,7 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
                 while(rsProdutos.next()) {
                     int codProduto = rsProdutos.getInt("cod_produto");
                     Produto p = JDBCProdutoDAO.getInstance().search(codProduto);
+                    p.setRestaurante(restaurante);
                     restaurante.getProdutos().add(p);
                 }
 

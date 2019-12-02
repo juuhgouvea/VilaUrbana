@@ -21,6 +21,7 @@ public class NavegadorJanelas {
     public static final String JANELA_CADASTRAR_RESTAURANTE_1 = "Views/CadastrarRestaurante/Passo1.fxml";
     public static final String JANELA_CADASTRAR_RESTAURANTE_2 = "Views/CadastrarRestaurante/Passo2.fxml";
     public static final String JANELA_EDITAR_PERFIL = "Views/JanelaEditarPerfil.fxml";
+    public static final String JANELA_ALTERAR_PRODUTO = "Views/JanelaAlterarProduto.fxml";
     public static final String JANELA_VISUALIZAR_RESTAURANTE = "Views/JanelaVisualizarRestaurante.fxml";
     public static final String JANELA_LOGIN = "Views/telaLogin.fxml";
     public static final String JANELA_HOME = "Views/Home.fxml";

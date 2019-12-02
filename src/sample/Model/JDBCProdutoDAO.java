@@ -54,6 +54,56 @@ public class JDBCProdutoDAO implements ProdutoDAO{
     }
 
     @Override
+    public Produto update(Produto produto) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "UPDATE produtos SET nome_produto = ?, foto_produto = ?, valor = ?, desc_produto = ?, cod_categoria = ? WHERE cod_produto = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+
+        pstm.setString(1, produto.getNomeProduto());
+        pstm.setString(2, produto.getFotoProduto());
+        pstm.setFloat(3, produto.getValor());
+        pstm.setString(4, produto.getDescProduto());
+        pstm.setInt(5, produto.getCategoria().getCodCategoria());
+        pstm.setInt(6, produto.getCodProduto());
+
+        boolean failed = pstm.execute();
+
+        if(!failed) {
+            return produto;
+        }
+
+        pstm.close();
+        con.close();
+
+        return null;
+    }
+
+    @Override
+    public boolean delete(Produto produto) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "DELETE FROM produtos WHERE cod_produto = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, produto.getCodProduto());
+
+        boolean failed = pstm.execute();
+
+        SQL = "DELETE FROM restaurantes_has_produtos WHERE cod_produto = ?";
+        pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, produto.getCodProduto());
+
+        failed = pstm.execute();
+
+        pstm.close();
+        con.close();
+
+        if(!failed) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public Produto search(int cod) {
         Produto produto = null;
         String SQL = "SELECT * FROM produtos WHERE cod_produto = ?";

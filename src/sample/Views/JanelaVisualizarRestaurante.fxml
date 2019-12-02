@@ -7,37 +7,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" stylesheets="file:resources/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaVisualizarRestaurante">
    <children>
-      <Text fx:id="nomeRestaurante" layoutX="16.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurante" textAlignment="CENTER" wrappingWidth="259.30810546875">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
       <ImageView fx:id="fotoRestaurante" fitHeight="111.0" fitWidth="178.0" layoutX="62.0" layoutY="23.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:resources/images/noimage.png" />
          </image>
       </ImageView>
-      <ListView fx:id="ltvProdutos" layoutX="286.0" layoutY="107.0" onMouseClicked="#mostrarProduto" prefHeight="193.0" prefWidth="481.0" />
-      <Text fx:id="descProduto" layoutX="286.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição do Produto:" wrappingWidth="299.0">
+      <Text fx:id="nomeRestaurante" layoutX="16.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurante" textAlignment="CENTER" wrappingWidth="259.30810546875">
          <font>
-            <Font size="14.0" />
+            <Font size="28.0" />
          </font>
       </Text>
-      <ImageView fx:id="fotoProduto" fitHeight="86.0" fitWidth="136.0" layoutX="634.0" layoutY="305.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:resources/images/noimage.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="valorProduto" layoutX="286.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$" wrappingWidth="157.0">
+      <TextField fx:id="tfNomeRestaurante" layoutX="54.0" layoutY="172.0" prefHeight="26.0" prefWidth="178.0" visible="false" />
+      <Button layoutX="73.0" layoutY="267.0" mnemonicParsing="false" onAction="#baixarCardapio" prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Baixar Cardápio" textAlignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="13.0" />
          </font>
-      </Text>
+      </Button>
+      <Button fx:id="btnEditar" layoutX="73.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#editarRestaurante" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar Restaurante" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
       <TextField fx:id="search" layoutX="286.0" layoutY="24.0" prefHeight="30.0" prefWidth="430.0" promptText="Procurar Produto por Categoria" />
       <Button layoutX="725.0" layoutY="24.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" textAlignment="CENTER">
          <font>
@@ -52,16 +48,22 @@
          </graphic>
       </Button>
       <Text layoutX="397.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique no produto para ver os detalhes!" />
-      <Button layoutX="73.0" layoutY="302.0" mnemonicParsing="false" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar Restaurante" textAlignment="CENTER">
+      <ListView fx:id="ltvProdutos" layoutX="286.0" layoutY="107.0" onMouseClicked="#mostrarProduto" prefHeight="193.0" prefWidth="481.0" />
+      <Text fx:id="descProduto" layoutX="286.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição do Produto:" wrappingWidth="299.0">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font size="14.0" />
          </font>
-      </Button>
-      <Button layoutX="73.0" layoutY="267.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Baixar Cardápio" textAlignment="CENTER">
+      </Text>
+      <Text fx:id="valorProduto" layoutX="286.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$" wrappingWidth="157.0">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font size="14.0" />
          </font>
-      </Button>
+      </Text>
+      <ImageView fx:id="fotoProduto" fitHeight="86.0" fitWidth="136.0" layoutX="634.0" layoutY="305.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:resources/images/noimage.png" />
+         </image>
+      </ImageView>
       <HBox alignment="CENTER" layoutX="21.0" layoutY="368.0" onMouseClicked="#voltar" prefHeight="16.0" prefWidth="66.0" spacing="5.0" styleClass="link">
          <children>
             <ImageView fitHeight="16.0" fitWidth="17.0">
@@ -72,5 +74,22 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar" textAlignment="CENTER" underline="true" wrappingWidth="41.7294921875" />
          </children>
       </HBox>
+      <Button fx:id="btnConcluirEdicao" layoutX="112.0" layoutY="213.0" mnemonicParsing="false" onMouseClicked="#concluirEdicaoRestaurante" style="-fx-background-color: #1abc9c;" styleClass="link" text="Concluir" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <AnchorPane fx:id="alterarLogo" layoutX="35.0" layoutY="13.0" prefHeight="139.0" prefWidth="241.0">
+         <children>
+            <Circle fill="#bdc3c7" layoutX="121.0" layoutY="58.0" onMouseClicked="#uploadFoto" radius="52.0" stroke="#1abc9c" strokeType="INSIDE" styleClass="link" />
+            <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="96.0" layoutY="37.0" onMouseClicked="#uploadFoto">
+               <image>
+                  <Image url="file:resources/images/photo-camera.png" />
+               </image>
+            </ImageView>
+            <Text fill="#0d866e" layoutX="2.0" layoutY="126.0" onMouseClicked="#uploadFoto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="link" text="Alterar Logo" textAlignment="CENTER" underline="true" wrappingWidth="240.7294921875" />
+            <Text fx:id="logoFile" layoutX="33.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="178.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import sample.Model.JDBCUsuarioDAO;
+import sample.Model.Timer;
 import sample.Model.Usuario;
 import sample.NavegadorJanelas;
 
@@ -24,6 +25,7 @@ public class ControllerJanelaLogin extends ControllerBase {
             return;
         }
 
+        Timer.getInstance().start();
         NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 

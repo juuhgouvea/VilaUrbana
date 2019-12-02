@@ -8,7 +8,6 @@ import sample.Model.JDBCUsuarioDAO;
 import sample.Model.Usuario;
 import sample.NavegadorJanelas;
 
-import java.io.File;
 import java.sql.SQLException;
 
 public class ControllerJanelaEditarPerfil extends ControllerBase {
@@ -33,7 +32,22 @@ public class ControllerJanelaEditarPerfil extends ControllerBase {
     }
 
     @FXML
-    public void excluir() {}
+    public void excluir() {
+        try {
+            boolean sucesso = JDBCUsuarioDAO.getInstance().delete(this.logado);
+
+            if(sucesso) {
+                JDBCUsuarioDAO.getInstance().logout();
+                mensagem(Alert.AlertType.CONFIRMATION, "Sua conta foi excluida!");
+                NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_CADASTRAR_USUARIO);
+            }
+        } catch (SQLException e) {
+            mensagem(Alert.AlertType.ERROR, "Houve um erro ao excluir sua conta!");
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void concluir() {

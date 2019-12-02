@@ -106,6 +106,31 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
     }
 
     @Override
+    public boolean delete(Usuario usuario) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "DELETE FROM usuarios WHERE cod_usuario = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, usuario.getCodUsuario());
+
+        boolean failed = pstm.execute();
+
+        SQL = "DELETE FROM restaurantes WHERE cod_usuario = ?";
+        pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, usuario.getCodUsuario());
+
+        failed = pstm.execute();
+
+        pstm.close();
+        con.close();
+
+        if(!failed) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public Usuario logar(String nomeUsuario, String senha) {
         String SQL = "SELECT * FROM usuarios WHERE nome_usuario LIKE ? AND senha LIKE ?";
 

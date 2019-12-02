@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import sample.Model.JDBCUsuarioDAO;
+import sample.Model.Timer;
 import sample.Model.Usuario;
 import sample.NavegadorJanelas;
 
@@ -51,6 +52,9 @@ public class ControllerJanelaCadastrarUsuario extends ControllerBase {
                 File usuarioDiretorio = new File("./resources/ImagensUsuarios/usuario-" + usuario.getCodUsuario());
                 usuarioDiretorio.mkdir();
                 mensagem(Alert.AlertType.CONFIRMATION, usuario.getNomeCompleto() + ", você foi cadastrado(a) com sucesso!");
+                JDBCUsuarioDAO.getInstance().logar(sucesso.getNomeUsuario(), sucesso.getSenha());
+                Timer.getInstance().start();
+                NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
             } else {
                 mensagem(Alert.AlertType.ERROR, "Desculpe, houve um erro no seu cadastro!");
             }

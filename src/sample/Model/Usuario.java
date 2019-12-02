@@ -1,11 +1,28 @@
 package sample.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Usuario {
     private int codUsuario;
     private String nomeCompleto;
     private String nomeUsuario;
     private String email;
     private String senha;
+    private ObservableList<Restaurante> restaurantes;
+
+    public Usuario() {
+        restaurantes = FXCollections.observableArrayList();
+    }
+
+    public ObservableList<Restaurante> getRestaurantes() {
+        return restaurantes;
+    }
+
+    public void setRestaurantes(ObservableList<Restaurante> restaurantes) {
+        this.restaurantes.clear();
+        this.restaurantes.addAll(restaurantes);
+    }
 
     public int getCodUsuario() {
         return this.codUsuario;
