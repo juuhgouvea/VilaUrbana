@@ -104,6 +104,23 @@ public class JDBCProdutoDAO implements ProdutoDAO{
     }
 
     @Override
+    public boolean addProduto_restaurante(Produto produto) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+
+        String SQL = "INSERT INTO restaurantes_has_produtos (cod_restaurante, cod_produto) VALUES (?, ?)";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, produto.getRestaurante().getCodRestaurante());
+        pstm.setInt(2, produto.getCodProduto());
+
+        boolean failed = pstm.execute();
+        if(!failed) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public Produto search(int cod) {
         Produto produto = null;
         String SQL = "SELECT * FROM produtos WHERE cod_produto = ?";

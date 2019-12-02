@@ -29,7 +29,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="btnEditar" layoutX="73.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#editarRestaurante" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar Restaurante" textAlignment="CENTER">
+      <Button fx:id="btnEditar" layoutX="73.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#editarRestaurante" prefHeight="29.0" prefWidth="157.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Editar Restaurante" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -54,7 +54,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="valorProduto" layoutX="286.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$" wrappingWidth="157.0">
+      <Text fx:id="valorProduto" layoutX="286.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: R$" wrappingWidth="157.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -91,5 +91,20 @@
             <Text fx:id="logoFile" layoutX="33.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="178.0" />
          </children>
       </AnchorPane>
+      <Button fx:id="btnAddProdutos" layoutX="448.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#addProdutos" prefHeight="29.0" prefWidth="157.0" style="-fx-background-color: #1abc9c;" styleClass="link" text="Adicionar Produtos" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <HBox fx:id="excluir" alignment="CENTER" layoutX="112.0" layoutY="355.0" onMouseClicked="#excluir" prefHeight="38.0" prefWidth="106.0" spacing="2.0" styleClass="link">
+         <children>
+            <Text fill="#fc0505" strokeType="OUTSIDE" strokeWidth="0.0" text="Excluir Restaurante" textAlignment="CENTER" underline="true" />
+            <ImageView fitHeight="15.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:resources/images/excluir.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -49,6 +50,10 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
     @FXML
     private Button btnEditar;
     @FXML
+    private HBox excluir;
+    @FXML
+    private Button btnAddProdutos;
+    @FXML
     private Button btnConcluirEdicao;
     @FXML
     private Pane alterarLogo;
@@ -60,6 +65,8 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
     @FXML
     public void initialize() {
         btnEditar.setVisible(false);
+        excluir.setVisible(false);
+        btnAddProdutos.setVisible(false);
         btnConcluirEdicao.setVisible(false);
         tfNomeRestaurante.setVisible(false);
         alterarLogo.setVisible(false);
@@ -81,6 +88,8 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
 
         if(proprietario.getCodUsuario() == logado.getCodUsuario()) {
             btnEditar.setVisible(true);
+            excluir.setVisible(true);
+            btnAddProdutos.setVisible(true);
         }
 
         if(this.restaurante.getFotoRestaurante() != null) {
@@ -184,9 +193,8 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
                 alterado.setFotoRestaurante(this.logo.getName());
             }
 
-            if(alterado != null) {
+            if(alterado != null && this.logo != null) {
                 ImageIO.write(this.image, "PNG", new File(path));
-
                 File fotoAntiga = new File("./resources/ImagensUsuarios/usuario-" + this.restaurante.getUsuario().getCodUsuario()
                         + "/" + this.restaurante.getFotoRestaurante());
                 if((restaurante.getFotoRestaurante() != null || !restaurante.getFotoRestaurante().equals("")) && fotoAntiga.exists()) {
@@ -214,8 +222,8 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
     }
 
     @FXML
-    private void voltar() {
-        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
+    private void addProdutos() {
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_INSERIR_PRODUTO, this.restaurante);
     }
 
     @FXML
@@ -239,5 +247,30 @@ public class ControllerJanelaVisualizarRestaurante extends ControllerBase {
 
             this.logoFile.setText("" + logo.getName());
         }
+    }
+
+    @FXML
+    private void excluir() {
+        try {
+            boolean sucesso = JDBCRestauranteDAO.getInstance().delete(this.restaurante);
+            if(!sucesso) {
+                mensagem(Alert.AlertType.ERROR, "Houve um erro ao excluir restaurante!");
+                return;
+            }
+
+            mensagem(Alert.AlertType.CONFIRMATION, "Restaurante Excluido!");
+            NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void voltar() {
+        NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 }

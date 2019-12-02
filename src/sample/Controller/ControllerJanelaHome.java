@@ -51,7 +51,8 @@ public class ControllerJanelaHome extends ControllerBase {
 
     @FXML
     public void sair(){
-        Timer.getInstance().stop();
+        this.cronometro.stop();
+        this.cronometro = null;
         mensagem(Alert.AlertType.INFORMATION, "Seu tempo de permanencia foi: "
                 + Timer.getInstance().getTime() + " segundos");
         Timer.getInstance().setTime(0);
@@ -59,10 +60,6 @@ public class ControllerJanelaHome extends ControllerBase {
     }
 
     public void iniciarCronometro() {
-        if(this.cronometro != null) {
-            return;
-        }
-
         Task t =  new Task() {
             @Override
             protected Object call() throws Exception {
@@ -82,5 +79,4 @@ public class ControllerJanelaHome extends ControllerBase {
         this.cronometro = new Thread(t);
         this.cronometro.start();
     }
-
 }

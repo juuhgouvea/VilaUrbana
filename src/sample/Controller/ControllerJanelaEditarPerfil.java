@@ -67,23 +67,22 @@ public class ControllerJanelaEditarPerfil extends ControllerBase {
         }
 
         try {
-            this.logado.setEmail(tfEmail.getText());
-            this.logado.setNomeCompleto(tfNomeCompleto.getText());
-            this.logado.setNomeUsuario(tfNomeUsuario.getText());
+            Usuario alterado = new Usuario();
+            alterado.setCodUsuario(this.logado.getCodUsuario());
+            alterado.setEmail(tfEmail.getText());
+            alterado.setNomeCompleto(tfNomeCompleto.getText());
+            alterado.setNomeUsuario(tfNomeUsuario.getText());
 
             if(!tfSenha.getText().equals("")) {
-                this.logado.setSenha(tfSenha.getText());
+                alterado.setSenha(tfSenha.getText());
             } else {
-                this.logado.setSenha(JDBCUsuarioDAO.getInstance().getLogado().getSenha());
+                alterado.setSenha(this.logado.getSenha());
             }
 
-            Usuario usuario = JDBCUsuarioDAO.getInstance().update(this.logado);
-            if (usuario != null) {
-               this.logado = usuario;
-               JDBCUsuarioDAO.getInstance().getLogado().setEmail(this.logado.getEmail());
-               JDBCUsuarioDAO.getInstance().getLogado().setNomeCompleto(this.logado.getNomeCompleto());
-               JDBCUsuarioDAO.getInstance().getLogado().setNomeUsuario(this.logado.getNomeUsuario());
-               JDBCUsuarioDAO.getInstance().getLogado().setSenha("");
+            alterado = JDBCUsuarioDAO.getInstance().update(alterado);
+            if (alterado != null) {
+
+               this.logado = alterado;
 
                 mensagem(Alert.AlertType.CONFIRMATION, this.logado.getNomeCompleto() + ", você foi atualizado(a) com sucesso!");
             } else {

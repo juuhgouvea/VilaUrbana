@@ -89,6 +89,66 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
     }
 
     @Override
+    public boolean delete(Restaurante restaurante) throws SQLException {
+        Connection con = FabricaConexao.getConnection();
+        String SQL = "DELETE FROM restaurantes_has_produtos WHERE cod_restaurante = ?";
+        PreparedStatement pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, restaurante.getCodRestaurante());
+
+        boolean failed = pstm.execute();
+
+        for (Produto p: restaurante.getProdutos()) {
+            JDBCProdutoDAO.getInstance().delete(p);
+        }
+
+        SQL = "DELETE FROM restaurantes WHERE cod_restaurante = ?";
+        pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, restaurante.getCodRestaurante());
+
+        failed = pstm.execute();
+
+        pstm.close();
+        con.close();
+
+        if(!failed) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public Restaurante search(int cod) {
+        Restaurante restaurante = null;
+        String SQL = "SELECT * FROM restaurantes WHERE cod_restaurante = ?";
+
+        try {
+            Connection con = FabricaConexao.getConnection();
+            ResultSet rs;
+            PreparedStatement pstm = con.prepareStatement(SQL);
+            pstm.setInt(1, cod);
+            rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                int cod_usuario = rs.getInt("cod_usuario");
+                restaurante = new Restaurante();
+                restaurante.setCodRestaurante(rs.getInt("cod_restaurante"));
+                restaurante.setNomeRestaurante(rs.getString("nome_restaurante"));
+                restaurante.setFotoRestaurante(rs.getString("foto_restaurante"));
+                restaurante.setUsuario(JDBCUsuarioDAO.getInstance().search(cod_usuario));
+            }
+
+            rs.close();
+            pstm.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Erro ao procurar produto!\n" + e.getMessage());
+        }
+
+        return restaurante;
+    }
+
+    @Override
     public ObservableList<Restaurante> list() {
         String SQL = "SELECT * FROM restaurantes";
 
@@ -125,6 +185,7 @@ public class JDBCRestauranteDAO implements RestauranteDAO {
             }
 
             rs.close();
+            pstm.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Erro ao listar restaurantes! " + e.getMessage());

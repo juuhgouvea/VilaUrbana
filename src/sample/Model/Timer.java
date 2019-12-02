@@ -9,6 +9,7 @@ public class Timer extends Thread {
     public static Timer getInstance() {
         if(instance == null) {
             instance = new Timer();
+            instance.start();
         }
 
         return instance;

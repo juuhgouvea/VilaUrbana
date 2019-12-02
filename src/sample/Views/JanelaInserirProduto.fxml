@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f1c40f;" stylesheets="file:resources/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerJanelaInserirProduto">
+   <children>
+      <Circle fill="#bdc3c7" layoutX="524.0" layoutY="69.0" onMouseClicked="#uploadFoto" radius="51.0" stroke="#1abc9c" strokeType="INSIDE" styleClass="link" />
+      <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="507.0" layoutY="50.0" onMouseClicked="#uploadFoto" styleClass="link">
+         <image>
+            <Image url="file:resources/images/photo-camera.png" />
+         </image>
+      </ImageView>
+      <Text fill="#0d866e" layoutX="447.0" layoutY="138.0" onMouseClicked="#uploadFoto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="link" text="Adicione a foto do produto" textAlignment="CENTER" underline="true" />
+      <Text fx:id="fotoFile" layoutX="437.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="173.08154296875" />
+      <TextField fx:id="nomeProduto" layoutX="192.0" layoutY="43.0" prefHeight="26.0" prefWidth="241.0" />
+      <Text layoutX="192.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o nome do produto" />
+      <Text layoutX="407.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" />
+      <TextField fx:id="valor" layoutX="192.0" layoutY="96.0" prefHeight="26.0" prefWidth="102.0" />
+      <Text layoutX="192.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insira abaixo o valor a ser cobrado " wrappingWidth="241.0" />
+      <Text layoutX="420.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" />
+      <TextArea fx:id="descProduto" layoutX="192.0" layoutY="207.0" prefHeight="119.0" prefWidth="417.0" />
+      <Text layoutX="192.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicione abaixo a descrição do produto " />
+      <Button layoutX="326.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#cadastrar" style="-fx-background-color: #1abc9c;" styleClass="link" text="Adicionar Produto" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cbCategoria" layoutX="189.0" layoutY="140.0" prefHeight="26.0" prefWidth="192.0" promptText="Selecione a categoria" />
+      <Text layoutX="192.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="* Campo obrigatório" textAlignment="CENTER" />
+      <Text layoutX="387.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="required" text="*" textAlignment="CENTER" />
+      <HBox alignment="CENTER" layoutX="22.0" layoutY="376.0" onMouseClicked="#voltar" prefHeight="16.0" prefWidth="66.0" spacing="5.0" styleClass="link">
+         <children>
+            <ImageView fitHeight="16.0" fitWidth="17.0">
+               <image>
+                  <Image url="file:resources/images/left-arrow.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voltar" textAlignment="CENTER" underline="true" wrappingWidth="41.7294921875" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

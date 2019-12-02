@@ -108,16 +108,28 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
     @Override
     public boolean delete(Usuario usuario) throws SQLException {
         Connection con = FabricaConexao.getConnection();
-        String SQL = "DELETE FROM usuarios WHERE cod_usuario = ?";
+        String SQL = SQL = "DELETE FROM produtos WHERE cod_produto IN " +
+                "(SELECT cod_produto FROM restaurantes_has_produtos WHERE cod_restaurante IN" +
+                " (SELECT cod_restaurante FROM restaurantes WHERE cod_usuario = ?))";
         PreparedStatement pstm = con.prepareStatement(SQL);
         pstm.setInt(1, usuario.getCodUsuario());
-
         boolean failed = pstm.execute();
+
+        SQL = "DELETE FROM restaurantes_has_produtos WHERE cod_restaurante IN" +
+                " (SELECT cod_restaurante FROM restaurantes WHERE cod_usuario = ?)";
+
+        pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, usuario.getCodUsuario());
+        failed = pstm.execute();
 
         SQL = "DELETE FROM restaurantes WHERE cod_usuario = ?";
         pstm = con.prepareStatement(SQL);
         pstm.setInt(1, usuario.getCodUsuario());
+        failed = pstm.execute();
 
+        SQL = "DELETE FROM usuarios WHERE cod_usuario = ?";
+        pstm = con.prepareStatement(SQL);
+        pstm.setInt(1, usuario.getCodUsuario());
         failed = pstm.execute();
 
         pstm.close();

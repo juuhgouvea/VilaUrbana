@@ -25,7 +25,8 @@ public class ControllerJanelaLogin extends ControllerBase {
             return;
         }
 
-        Timer.getInstance().start();
+        Timer.getInstance().setTime(0);
+
         NavegadorJanelas.loadJanela(NavegadorJanelas.JANELA_HOME);
     }
 

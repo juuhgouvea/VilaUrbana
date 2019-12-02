@@ -51,7 +51,11 @@ public class ControllerJanelaAlterarProduto extends ControllerBase {
         tfNomeProduto.setText(produto.getNomeProduto());
         tfDescricaoProduto.setText(produto.getDescProduto());
         tfValorProduto.setText("" + produto.getValor());
-        cbCategoria.setPromptText(produto.getCategoria().getDescCategoria());
+        for (Categoria c: cbCategoria.getItems()) {
+            if(c.getCodCategoria() == produto.getCategoria().getCodCategoria()) {
+                cbCategoria.setValue(c);
+            }
+        }
         Image image = getImage();
         if(image != null) {
             this.fotoProduto.setImage(image);

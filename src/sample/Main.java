@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Controller.ControllerJanelaPrincipal;
 import sample.Model.FabricaConexao;
+import sample.Model.Timer;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -45,6 +46,13 @@ public class Main extends Application {
     private Scene createScene(Pane mainPane){
         Scene scene = new Scene(mainPane, 800, 400);
         return scene;
+    }
+
+    @Override
+    public void stop() {
+        if(Timer.getInstance().isAlive()) {
+            Timer.getInstance().stop();
+        }
     }
 
     public static void main(String[] args) {
